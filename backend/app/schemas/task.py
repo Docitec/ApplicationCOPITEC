@@ -33,7 +33,7 @@ class Task(TaskBase):
     updated_at: datetime
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 class TaskHistory(BaseModel):
     id: int
@@ -43,7 +43,7 @@ class TaskHistory(BaseModel):
     snapshot: str
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 class TaskUpdate(TaskBase):
     updated_by: Optional[str] = None
