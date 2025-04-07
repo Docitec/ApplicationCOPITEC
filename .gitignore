@@ -1,0 +1,23 @@
+# Environnements Python
+venv/
+.env
+__pycache__/
+*.py[cod]
+
+# Node / React
+node_modules/
+frontend/build/
+frontend/.next/
+frontend/.cache/
+
+# IDEs
+.vscode/
+.idea/
+
+# Logs, caches, temporaires
+*.log
+*.tmp
+
+# Systèmes d’exploitation
+.DS_Store
+Thumbs.db

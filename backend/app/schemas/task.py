@@ -44,3 +44,6 @@ class TaskHistory(BaseModel):
 
     class Config:
         orm_mode = True
+
+class TaskUpdate(TaskBase):
+    updated_by: Optional[str] = None
