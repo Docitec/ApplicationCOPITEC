@@ -17,7 +17,12 @@ def get_db():
     finally:
         db.close()
 
+
 @router.post("/", response_model=TaskRead)
+# 🔧 1. Création d'une tâche
+# Méthode : POST
+# Route : /tasks/
+# Objectif : Créer une nouvelle tâche
 def create_task(task: TaskCreate, db: Session = Depends(get_db)):
     now = datetime.utcnow()
     db_task = DBTask(
@@ -34,6 +39,10 @@ def create_task(task: TaskCreate, db: Session = Depends(get_db)):
     return db_task
 
 @router.get("/", response_model=List[TaskRead])
+# 📃 3. Récupération de toutes les tâches
+# Méthode : GET
+# Route : /tasks/
+# Objectif : Renvoyer toutes les tâches, avec les bons types (list[str], list[int], etc.)
 def get_tasks(db: Session = Depends(get_db)):
     tasks = db.query(DBTask).all()
     for task in tasks:
