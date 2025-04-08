@@ -1,0 +1,43 @@
+
+# Environnement virtuel
+venv/
+
+# Python
+__pycache__/
+*.py[cod]
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+
+# Logs
+*.log
+
+# IDE / Editeurs
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Environnement
+.env
+
+# Tests / Coverage
+htmlcov/
+.tox/
+.coverage
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+.hypothesis/
+
+# MyPy / Pylint
+.mypy_cache/
+.pytype/
+.pylint.d/
