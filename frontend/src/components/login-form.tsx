@@ -1,24 +1,45 @@
-"use client"
+"use client";
 
-import type React from "react"
-
-import { useState } from "react"
-import Link from "next/link"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
-import { LockKeyhole } from "lucide-react"
+import { useState } from "react";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { LockKeyhole } from "lucide-react";
+import { api } from "@/lib/api";
 
 export function LoginForm() {
-  const [email, setEmail] = useState("")
-  const [password, setPassword] = useState("")
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const router = useRouter();
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    // In a real app, this would handle authentication
-    window.location.href = "/dashboard"
-  }
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setError("");
+
+    try {
+      const res = await api.post("/auth/login", { email, password });
+
+      if (res.status === 200 && res.data?.token) {
+        localStorage.setItem("token", res.data.token);
+        router.push("/dashboard");
+      } else {
+        setError("Identifiants incorrects.");
+      }
+    } catch (err) {
+      setError("Identifiants incorrects.");
+    }
+  };
 
   return (
     <Card className="w-full max-w-md shadow-lg">
@@ -27,7 +48,9 @@ export function LoginForm() {
           <LockKeyhole className="h-6 w-6 text-primary" />
         </div>
         <CardTitle className="text-2xl font-bold text-center">COPITEC</CardTitle>
-        <CardDescription className="text-center">Cut Over Plan Management Tool</CardDescription>
+        <CardDescription className="text-center">
+          Cut Over Plan Management Tool
+        </CardDescription>
       </CardHeader>
       <CardContent>
         <form onSubmit={handleSubmit} className="space-y-4">
@@ -43,9 +66,7 @@ export function LoginForm() {
             />
           </div>
           <div className="space-y-2">
-            <div className="flex items-center justify-between">
-              <Label htmlFor="password">Password</Label>
-            </div>
+            <Label htmlFor="password">Password</Label>
             <Input
               id="password"
               type="password"
@@ -55,16 +76,20 @@ export function LoginForm() {
               required
             />
           </div>
+          {error && <p className="text-sm text-red-600">{error}</p>}
           <Button type="submit" className="w-full">
             Login
           </Button>
         </form>
       </CardContent>
       <CardFooter>
-        <Link href="/forgot-password" className="text-sm text-center w-full text-primary hover:underline">
+        <Link
+          href="/forgot-password"
+          className="text-sm text-center w-full text-primary hover:underline"
+        >
           Forgot password?
         </Link>
       </CardFooter>
     </Card>
-  )
+  );
 }
