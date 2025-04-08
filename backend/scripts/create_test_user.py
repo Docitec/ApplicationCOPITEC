@@ -1,29 +1,39 @@
-# backend/scripts/create_test_user.py
+from app.core.database import SessionLocal, Base, engine
 
-from app.core.database import SessionLocal
+# ✅ IMPORTS DE TOUS LES MODÈLES AVANT TOUT
+from app.models import user, task, enums
 from app.models.user import User
-from datetime import datetime, timezone
+
 import uuid
+from datetime import datetime, timezone
+from passlib.context import CryptContext
 
-def insert_test_user():
-    db = SessionLocal()
-    try:
-        test_user = User(
-            id=uuid.uuid4(),
-            email="test@example.com",
-            hashed_password="not_secure",  # À remplacer plus tard par du hash
-            role="contributor",
-            created_at=datetime.now(timezone.utc),
-            updated_at=datetime.now(timezone.utc),
-        )
+# 🔐 Contexte bcrypt
+pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
+hashed_pwd = pwd_context.hash("romain.denis@docitec.com")
 
-        db.add(test_user)
-        db.commit()
-        print(f"✅ Utilisateur de test inséré avec l'ID : {test_user.id}")
-    except Exception as e:
-        print(f"❌ Erreur : {e}")
-    finally:
-        db.close()
+# 🛠 Crée les tables (utile pour test isolé)
+Base.metadata.create_all(bind=engine)
 
-if __name__ == "__main__":
-    insert_test_user()
+# ✅ Crée un utilisateur
+db = SessionLocal()
+
+test_user = User(
+    id=uuid.uuid4(),
+    email="romain.denis@docitec.com",
+    hashed_password=hashed_pwd,
+    role="admin",
+    created_at=datetime.now(timezone.utc),
+    updated_at=datetime.now(timezone.utc),
+)
+
+# 🔁 Ignore s’il existe déjà
+existing = db.query(User).filter_by(email=test_user.email).first()
+if not existing:
+    db.add(test_user)
+    db.commit()
+    print("✅ Utilisateur admin créé avec succès.")
+else:
+    print("ℹ️ Utilisateur admin déjà présent.")
+
+db.close()

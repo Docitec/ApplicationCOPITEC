@@ -2,7 +2,7 @@ from fastapi import FastAPI
 from app.routers import task_routes, user_routes, enum_routes
 from app.core.database import engine, Base
 from fastapi.middleware.cors import CORSMiddleware
-
+from app.routers import auth_routes
 
 # 🔽 Import des modèles
 from app.models import user, task, enums
@@ -25,7 +25,7 @@ Base.metadata.create_all(bind=engine)
 app.include_router(task_routes.router, prefix="/tasks", tags=["Tasks"])
 app.include_router(user_routes.router, prefix="/users", tags=["Users"])
 app.include_router(enum_routes.router, prefix="/enums", tags=["Enums"])
-
+app.include_router(auth_routes.router, prefix="", tags=["Auth"])
 @app.get("/")
 def root():
     return {"message": "Welcome to the Cut Over Plan API"}
