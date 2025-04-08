@@ -1,4 +1,4 @@
-import { EnumManager } from "@/src/components/enum-manager"
+import { EnumManager } from "@/components/enum-manager"
 
 export default function EnumsPage() {
   return (

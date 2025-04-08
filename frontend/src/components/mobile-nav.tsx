@@ -2,10 +2,10 @@
 
 import { useState } from "react"
 import Link from "next/link"
-import { Button } from "@/src/components/ui/button"
-import { Sheet, SheetContent, SheetTrigger } from "@/src/components/ui/sheet"
+import { Button } from "@/components/ui/button"
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import { Menu } from "lucide-react"
-import { navigationItems } from "@/src/lib/navigation-items"
+import { navigationItems } from "@/lib/navigation-items"
 
 export function MobileNav() {
   const [open, setOpen] = useState(false)

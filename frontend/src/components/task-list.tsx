@@ -1,9 +1,9 @@
 "use client"
 
 import { useState } from "react"
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/src/components/ui/table"
-import { Badge } from "@/src/components/ui/badge"
-import { Button } from "@/src/components/ui/button"
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
+import { Badge } from "@/components/ui/badge"
+import { Button } from "@/components/ui/button"
 import { MoreHorizontal, Edit } from "lucide-react"
 import {
   DropdownMenu,
@@ -12,8 +12,8 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/src/components/ui/dropdown-menu"
-import { TaskDetailModal } from "@/src/components/task-detail-modal"
+} from "@/components/ui/dropdown-menu"
+import { TaskDetailModal } from "@/components/task-detail-modal"
 
 // Sample data - in a real app this would come from an API
 const tasks = [

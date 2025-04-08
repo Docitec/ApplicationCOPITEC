@@ -1,6 +1,6 @@
-import { DashboardHeader } from "@/src/components/dashboard-header"
-import { DashboardCards } from "@/src/components/dashboard-cards"
-import { Button } from "@/src/components/ui/button"
+import { DashboardHeader } from "@/components/dashboard-header"
+import { DashboardCards } from "@/components/dashboard-cards"
+import { Button } from "@/components/ui/button"
 import { PlusCircle } from "lucide-react"
 import Link from "next/link"
 

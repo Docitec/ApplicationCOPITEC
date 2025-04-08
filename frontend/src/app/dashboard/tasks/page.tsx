@@ -1,6 +1,6 @@
-import { TaskList } from "@/src/components/task-list"
-import { TaskFilters } from "@/src/components/task-filters"
-import { Button } from "@/src/components/ui/button"
+import { TaskList } from "@/components/task-list"
+import { TaskFilters } from "@/components/task-filters"
+import { Button } from "@/components/ui/button"
 import { PlusCircle } from "lucide-react"
 import Link from "next/link"
 

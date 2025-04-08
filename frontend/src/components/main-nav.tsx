@@ -1,5 +1,5 @@
 import Link from "next/link"
-import { Button } from "@/src/components/ui/button"
+import { Button } from "@/components/ui/button"
 import { User } from "lucide-react"
 import {
   DropdownMenu,
@@ -8,8 +8,8 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/src/components/ui/dropdown-menu"
-import { MobileNav } from "@/src/components/mobile-nav"
+} from "@/components/ui/dropdown-menu"
+import { MobileNav } from "@/components/mobile-nav"
 
 export function MainNav() {
   return (
