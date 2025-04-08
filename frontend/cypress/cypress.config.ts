@@ -1,8 +1,9 @@
-import { defineConfig } from 'cypress';
+import { defineConfig } from "cypress";
 
 export default defineConfig({
   e2e: {
-    baseUrl: 'http://localhost:3000', // ton frontend
-    supportFile: 'cypress/support/e2e.ts',
+    baseUrl: "http://localhost:3000", // 👈 IMPORTANT
+    supportFile: false,
+    specPattern: "cypress/e2e/**/*.cy.ts",
   },
 });
