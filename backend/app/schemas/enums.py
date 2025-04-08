@@ -8,5 +8,7 @@ class EnumValue(BaseModel):
     value: str
     is_active: bool
 
-    class Config:
-        orm_mode = True
+    model_config = {
+        "from_attributes": True
+    }
+
