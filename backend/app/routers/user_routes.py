@@ -1,29 +1,35 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
-from uuid import UUID
-
-from app.core.database import SessionLocal
-from app.models.task import Task as TaskModel
-from app.schemas.task import Task, TaskCreate
+from app.core.database import get_db
+from app.models.user import User
+from app.schemas.user import UserCreate, UserOut
+from uuid import uuid4
+from datetime import datetime, timezone
 
 router = APIRouter()
 
-# Dependency
-def get_db():
-    db = SessionLocal()
-    try:
-        yield db
-    finally:
-        db.close()
 
-@router.get("/", response_model=list[Task])
-def list_tasks(db: Session = Depends(get_db)):
-    return db.query(TaskModel).all()
+@router.get("/", response_model=list[UserOut])
+def list_users(db: Session = Depends(get_db)):
+    return db.query(User).all()
 
-@router.post("/", response_model=Task)
-def create_task(task: TaskCreate, db: Session = Depends(get_db)):
-    db_task = TaskModel(**task.dict())
-    db.add(db_task)
+
+@router.post("/", response_model=UserOut)
+def create_user(user_data: UserCreate, db: Session = Depends(get_db)):
+    existing = db.query(User).filter(User.email == user_data.email).first()
+    if existing:
+        raise HTTPException(status_code=400, detail="Email already registered")
+
+    new_user = User(
+        id=uuid4(),
+        email=user_data.email,
+        hashed_password="not-really-hashed",  # à remplacer avec un vrai hash
+        role=user_data.role,
+        created_at=datetime.now(timezone.utc),
+        updated_at=datetime.now(timezone.utc),
+    )
+
+    db.add(new_user)
     db.commit()
-    db.refresh(db_task)
-    return db_task
+    db.refresh(new_user)
+    return new_user

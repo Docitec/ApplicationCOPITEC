@@ -2,15 +2,22 @@ from pydantic import BaseModel, EmailStr
 from uuid import UUID
 from datetime import datetime
 
+
 class UserBase(BaseModel):
     email: EmailStr
+    role: str
+
+    model_config = {
+        "from_attributes": True
+    }
+
 
 class UserCreate(UserBase):
-    password: str
+    password: str  # requis à la création uniquement
 
-class User(UserBase):
+
+class UserOut(UserBase):
     id: UUID
-    role: str
     created_at: datetime
     updated_at: datetime
 

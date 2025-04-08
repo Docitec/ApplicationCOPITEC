@@ -3,32 +3,35 @@ from typing import List, Optional
 from uuid import UUID
 from datetime import datetime
 
+
 class TaskBase(BaseModel):
     task_name: str
     description: Optional[str] = None
     execution_phase: List[str]
     system: str
     actor_id: UUID
-    duration_planned: str
+    duration_planned: str  # format hh:mm
+    start_planned: Optional[datetime] = None
+    end_planned: Optional[datetime] = None
     start_forced: Optional[datetime] = None
     force_start: bool = False
-    dependencies: Optional[List[UUID]] = []
-    allow_outside_working_hours: bool = False
-    notes_execution: Optional[str] = None
-    status: str
+    dependencies: List[str] = []
+    allow_outside_working_hours: bool = True
+    start_time_real: Optional[datetime] = None
+    end_time_real: Optional[datetime] = None
     chrono_state: str
+    status: str
+    notes_execution: Optional[str] = None
+    created_by: UUID
+    updated_by: UUID
+
 
 class TaskCreate(TaskBase):
     pass
 
-class Task(TaskBase):
+
+class TaskOut(TaskBase):
     id: UUID
-    start_planned: Optional[datetime]
-    end_planned: Optional[datetime]
-    start_time_real: Optional[datetime]
-    end_time_real: Optional[datetime]
-    created_by: UUID
-    updated_by: UUID
     created_at: datetime
     updated_at: datetime
 
