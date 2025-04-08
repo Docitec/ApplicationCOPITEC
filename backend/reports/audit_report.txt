@@ -1,0 +1,136 @@
+🎯 Project Coherence Audit Report
+📁 Base directory: C:\Users\romai\Documents\COPITEC\backend
+
+🔍 Scanning: C:\Users\romai\Documents\COPITEC\backend\app\models
+
+📄 File: app\models\enums.py
+  - Classes:
+    • EnumValue
+  - Imports:
+    • sqlalchemy
+    • sqlalchemy.dialects.postgresql
+    • app.core.database
+
+📄 File: app\models\task.py
+  - Classes:
+    • Task
+  - Imports:
+    • datetime
+    • sqlalchemy
+    • sqlalchemy.dialects.postgresql
+    • sqlalchemy.orm
+    • app.core.database
+
+📄 File: app\models\user.py
+  - Classes:
+    • User
+  - Imports:
+    • sqlalchemy
+    • sqlalchemy.dialects.postgresql
+    • sqlalchemy.orm
+    • datetime
+    • app.core.database
+
+📄 File: app\models\__init__.py
+
+🔍 Scanning: C:\Users\romai\Documents\COPITEC\backend\app\schemas
+
+📄 File: app\schemas\enums.py
+  - Classes:
+    • EnumValue
+  - Imports:
+    • pydantic
+    • uuid
+
+📄 File: app\schemas\task.py
+  - Classes:
+    • TaskBase
+    • TaskCreate
+    • TaskOut
+  - Imports:
+    • pydantic
+    • typing
+    • uuid
+    • datetime
+
+📄 File: app\schemas\user.py
+  - Classes:
+    • UserBase
+    • UserCreate
+    • UserOut
+  - Imports:
+    • pydantic
+    • uuid
+    • datetime
+
+📄 File: app\schemas\__init__.py
+
+🔍 Scanning: C:\Users\romai\Documents\COPITEC\backend\app\routers
+
+📄 File: app\routers\enum_routes.py
+  - Imports:
+    • fastapi
+
+📄 File: app\routers\task_routes.py
+  - Imports:
+    • fastapi
+    • sqlalchemy.orm
+    • app.core.database
+    • app.schemas.task
+    • app.models.task
+    • datetime
+
+📄 File: app\routers\user_routes.py
+  - Imports:
+    • fastapi
+    • sqlalchemy.orm
+    • app.core.database
+    • app.models.user
+    • app.schemas.user
+    • uuid
+    • datetime
+
+📄 File: app\routers\__init__.py
+
+🔍 Scanning: C:\Users\romai\Documents\COPITEC\backend\tests
+
+📄 File: tests\conftest.py
+  - Imports:
+    • sqlalchemy.orm
+    • sqlalchemy
+    • datetime
+    • app.core.database
+    • app.models.user
+
+📄 File: tests\test_api_task.py
+  - Imports:
+    • datetime
+    • fastapi.testclient
+    • app.main
+
+📄 File: tests\test_database.py
+  - Imports:
+    • sqlalchemy
+    • app.core.database
+
+📄 File: tests\test_dependencies.py
+  - Imports:
+    • sqlalchemy.orm
+    • app.core.database
+    • app.models
+    • app.models.task
+    • datetime
+
+📄 File: tests\test_enum_model.py
+  - Imports:
+    • sqlalchemy.orm
+    • app.core.database
+    • app.models.enums
+
+📄 File: tests\test_task_model.py
+  - Imports:
+    • sqlalchemy.orm
+    • app.core.database
+    • app.models
+    • app.models.task
+    • datetime
