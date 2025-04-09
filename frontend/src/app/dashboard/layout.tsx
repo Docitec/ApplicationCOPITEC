@@ -1,28 +1,22 @@
-"use client";
-import type React from "react";
-import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
-import { MainNav } from "@/components/main-nav";
-import { Sidebar } from "@/components/sidebar";
+"use client"
 
-export default function DashboardLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
-  const router = useRouter();
-  const [checked, setChecked] = useState(false);
+import { useAuth } from "@/context/AuthContext"
+import { useEffect } from "react"
+import { useRouter } from "next/navigation"
+import { MainNav } from "@/components/main-nav"
+import { Sidebar } from "@/components/sidebar"
+
+export default function DashboardLayout({ children }: { children: React.ReactNode }) {
+  const { token } = useAuth()
+  const router = useRouter()
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
     if (!token) {
-      router.push("/login");
-    } else {
-      setChecked(true); // ✅ autorise l'affichage après validation
+      router.replace("/") // Redirection stricte
     }
-  }, []);
+  }, [token, router])
 
-  if (!checked) return null; // ⛔ évite de rendre le layout trop tôt
+  if (!token) return null // ⛔ Empêche le rendu du dashboard si non connecté
 
   return (
     <div className="flex min-h-screen flex-col">
@@ -32,5 +26,5 @@ export default function DashboardLayout({
         <main className="flex-1 p-6 md:p-8">{children}</main>
       </div>
     </div>
-  );
+  )
 }

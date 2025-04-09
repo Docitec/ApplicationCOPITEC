@@ -1,45 +1,40 @@
-"use client";
+"use client"
 
-import { useState } from "react";
-import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { LockKeyhole } from "lucide-react";
-import { api } from "@/lib/api";
+import { useState } from "react"
+import Link from "next/link"
+import { useRouter } from "next/navigation"
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
+import { LockKeyhole } from "lucide-react"
+import { api } from "@/lib/api"
+import { useAuth } from "@/context/AuthContext"
 
 export function LoginForm() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
-  const router = useRouter();
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
+  const [error, setError] = useState("")
+  const router = useRouter()
+  const { setToken } = useAuth()
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setError("");
+    e.preventDefault()
+    setError("")
 
     try {
-      const res = await api.post("/auth/login", { email, password });
+      const res = await api.post("/auth/login", { email, password })
 
       if (res.status === 200 && res.data?.token) {
-        localStorage.setItem("token", res.data.token);
-        router.push("/dashboard");
+        setToken(res.data.token)
+        router.push("/dashboard")
       } else {
-        setError("Identifiants incorrects.");
+        setError("Identifiants incorrects.")
       }
     } catch (err) {
-      setError("Identifiants incorrects.");
+      setError("Identifiants incorrects.")
     }
-  };
+  }
 
   return (
     <Card className="w-full max-w-md shadow-lg">
@@ -83,13 +78,10 @@ export function LoginForm() {
         </form>
       </CardContent>
       <CardFooter>
-        <Link
-          href="/forgot-password"
-          className="text-sm text-center w-full text-primary hover:underline"
-        >
+        <Link href="/forgot-password" className="text-sm text-center w-full text-primary hover:underline">
           Forgot password?
         </Link>
       </CardFooter>
     </Card>
-  );
+  )
 }

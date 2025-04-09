@@ -17,7 +17,10 @@ sleep 3
 
 # Lancer backend (dans une nouvelle fenêtre de terminal)
 echo "✅ Lancement du backend (FastAPI)..."
-(cd backend && start "" wt -w 0 new-tab --title "Backend" cmd /k "venv\\Scripts\\activate && uvicorn app.main:app --reload")
+cd backend
+start "" cmd /k "..\\venv\\Scripts\\activate && uvicorn app.main:app --reload"
+cd ..
+
 
 # Lancer frontend (dans une nouvelle fenêtre de terminal)
 echo "✅ Lancement du frontend (Next.js)..."
