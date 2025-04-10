@@ -16,7 +16,7 @@ export function LoginForm() {
   const [password, setPassword] = useState("")
   const [error, setError] = useState("")
   const router = useRouter()
-  const { setToken } = useAuth()
+  const { login } = useAuth()
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -26,7 +26,7 @@ export function LoginForm() {
       const res = await api.post("/auth/login", { email, password })
 
       if (res.status === 200 && res.data?.token) {
-        setToken(res.data.token)
+        login(res.data.token)
         router.push("/dashboard")
       } else {
         setError("Identifiants incorrects.")
